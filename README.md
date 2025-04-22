@@ -1,23 +1,43 @@
 # azure-terraform-iaac-practice2
 
-# 🚀 Azure Infra with Terraform
+## 🚀 Azure Infrastructure with Terraform
 
-Deploys a full infrastructure on **Azure** using **Terraform**:
+This project deploys a complete infrastructure on **Azure** using **Terraform**, including:
 
-- Virtual Machine (VM)
-- Virtual Network (VNet), subnet, nsg
-- Resource Group (RG)
+- Virtual Machine (VM)  
+- Virtual Machine Scale Set (VMSS)  
+- Virtual Network (VNet) with 2 subnets and 2 NSGs  
+- Application Gateway  
+- Azure Key Vault  
+- PostgreSQL  
+- Blob Storage  
+- Resource Group (RG)  
 - Dependencies: Disk, NIC
 
-### 🔧 Stack
-- Terraform
-- Azure
+---
 
+## 🔧 Stack
 
-### 🌐 Diagram
+- Terraform  
+- Microsoft Azure
+
+---
+
+## ✅ Prerequisites
+
+- Fill in the values in `terraform.tfvars`  
+- Provide a custom image for the VM Scale Set (VMSS)
+
+---
+
+## 🌐 Architecture Diagram
+
 ![Infra Diagram](images/week5-stage6.5.png)
 
-### 🚀 Quick Start
+---
+
+## 🚀 Quick Start
+
 ```bash
 terraform init
 terraform apply
