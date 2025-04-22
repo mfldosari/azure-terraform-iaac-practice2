@@ -15,7 +15,7 @@ Deploys a full infrastructure on **Azure** using **Terraform**:
 
 
 ### 🌐 Diagram
-![Infra Diagram](images/stage5.png)
+![Infra Diagram](images/week5-stage6.5.png)
 
 ### 🚀 Quick Start
 ```bash
