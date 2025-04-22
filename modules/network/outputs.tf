@@ -2,16 +2,39 @@
 # Network Interface Outputs
 ##########################
 
-output "nic_id" {
-  description = "The ID of the network interface"
-  value       = azurerm_network_interface.this.id
+output "nic_name1_chroma_id" {
+  description = "The ID of the network interface (Chroma NIC)"
+  value       = azurerm_network_interface.nic1-chroma.id
 }
+
+/* output "nic2-streamlit_uvicorn_id" {
+  description = "The ID of the network interface (Streamlit and Uvicorn NIC)"
+  value       = azurerm_network_interface.nic2-streamlit.id
+} */
 
 ##########################
 # Public IP Address Outputs
 ##########################
 
-output "public_ip_address" {
-  description = "The public IP address assigned to the network interface"
-  value       = azurerm_public_ip.this.ip_address
+output "public_ip_address_chroma" {
+  description = "The public IP address assigned to the network interface (Chroma VM IP)"
+  value       = azurerm_public_ip.chroma_vm.ip_address
+}
+
+output "public_ip_address_streamlit_uvicorn" {
+  description = "The public IP address assigned to the network interface (Streamlit and Uvicorn VM IP)"
+  value       = azurerm_public_ip.streamlit_uvicorn_vm.ip_address
+}
+
+output "subnetid1" {
+  description = "The public IP address assigned to the network interface (Streamlit and Uvicorn VM IP)"
+  value       = azurerm_subnet.sub1.id
+}
+
+output "appgw_backend_pool_id" {
+  value = lookup(
+    { for pool in azurerm_application_gateway.appgw.backend_address_pool : pool.name => pool.id },
+    "vmss-backend-pool",
+    null
+  )
 }

@@ -14,13 +14,21 @@ variable "address_space" {
 # Subnet Configuration
 ##########################
 
-variable "subnet_name" {
+variable "subnet1_name" {
   description = "The name of the subnet"
 }
 
-variable "subnet_prefixe" {
+variable "subnet2_name" {
   description = "The subnet address prefix"
 }
+
+variable "subnet1_prefixe" {
+  description = "The subnet address prefix"
+}
+variable "subnet2_prefixe" {
+  description = "The subnet address prefix"
+}
+
 
 ##########################
 # Resource Group and Location Configuration
@@ -38,10 +46,14 @@ variable "location" {
 # Network Interface and Security Group Configuration
 ##########################
 
-variable "nic_name" {
+variable "nic_name1_chroma_vm" {
   description = "The name of the network interface"
 }
 
-variable "nsg_name" {
+variable "nsg_name_sub1" {
+  description = "The name of the network security group"
+}
+
+variable "nsg_name_sub2" {
   description = "The name of the network security group"
 }

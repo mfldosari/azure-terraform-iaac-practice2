@@ -3,8 +3,14 @@
 ##########################
 
 # Name of the virtual machine (VM)
-variable "vm_name" {
-  description = "The name of the virtual machine"
+variable "chroma_vm_name" {
+  description = "The name of the virtual machine (Chroma vm)"
+}
+
+
+# Name of the virtual machine (VM)
+variable "streamlit_uvicorn_vm_name" {
+  description = "The name of the virtual machine (streamlit uvicorn vm)"
 }
 
 # The resource group name in which the VM will reside
@@ -28,8 +34,38 @@ variable "admin_username" {
 }
 
 # The network interface (NIC) ID to be associated with the virtual machine
-variable "nic_id" {
-  description = "The network interface ID for the VM"
+variable "nic_name1_chroma_id" {
+  description = "The network interface ID for the VM (chroma vm)"
 }
 
 
+variable "subnet1_id" {
+  description = "Subnet ID where VMSS NICs will be attached"
+  type        = string
+}
+
+variable "appgw_backend_pool_id" {
+  description = "Backend address pool ID of the Application Gateway"
+  type        = string
+}
+
+variable "vmss_name" {
+  description = "Vmss name"
+  type        = string
+}
+
+
+variable "image_name" {
+  description = "image name"
+  type        = string
+}
+
+variable "image_rg_name" {
+  description = "image resource group  name"
+  type        = string
+}
+
+variable "pathToSSHKey" {
+  description = "SSH key path"
+  type        = string
+}
