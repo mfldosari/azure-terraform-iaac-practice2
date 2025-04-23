@@ -34,7 +34,7 @@ nic_name1_chroma_vm = "" # Network Interface for Chroma VM
 ##########################
 
 chroma_vm_name            = "" # Name of the Chroma VM
-streamlit_uvicorn_vm_name = "" # Name of the Streamlit Uvicorn VM
+
 
 vm_size        = "" # VM size
 admin_username = "" # Admin username for VMs

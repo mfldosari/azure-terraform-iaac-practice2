@@ -66,7 +66,6 @@ module "compute" {
   admin_username            = var.admin_username
   vm_size                   = var.vm_size
   chroma_vm_name            = var.chroma_vm_name
-  streamlit_uvicorn_vm_name = var.streamlit_uvicorn_vm_name
   subnet1_id                = module.network.subnetid1
   appgw_backend_pool_id     = module.network.appgw_backend_pool_id
   vmss_name                 = var.vmss_name

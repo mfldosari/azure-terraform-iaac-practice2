@@ -18,11 +18,6 @@ variable "chroma_vm_name" {
   description = "The name of the Chroma virtual machine"
 }
 
-# Name of the Streamlit Uvicorn virtual machine
-variable "streamlit_uvicorn_vm_name" {
-  description = "The name of the Streamlit Uvicorn virtual machine"
-}
-
 
 # Size of the virtual machine (SKU)
 variable "vm_size" {
