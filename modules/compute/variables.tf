@@ -8,11 +8,6 @@ variable "chroma_vm_name" {
 }
 
 
-# Name of the virtual machine (VM)
-variable "streamlit_uvicorn_vm_name" {
-  description = "The name of the virtual machine (streamlit uvicorn vm)"
-}
-
 # The resource group name in which the VM will reside
 variable "rg_name" {
   description = "The name of the resource group for the VM"
