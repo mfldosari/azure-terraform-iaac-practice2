@@ -18,7 +18,7 @@ resource "azurerm_storage_account" "this" {
 
 # Storage Container Resource
 resource "azurerm_storage_container" "this" {
-  name                  = "chatbot"
+  name                  = var.storage_container_name 
   storage_account_name  = azurerm_storage_account.this.name
   container_access_type = "private"
 
@@ -26,3 +26,19 @@ resource "azurerm_storage_container" "this" {
 }
 
 
+data "azurerm_storage_account_blob_container_sas" "this" {
+  connection_string = azurerm_storage_account.this.primary_connection_string
+  container_name    = azurerm_storage_container.this.name
+
+  start  = "2024-01-01"
+  expiry = "2030-01-01"
+
+  permissions {
+    read   = true
+    write  = true
+    delete = true
+    list   = true
+    add    = true
+    create = true
+  }
+}

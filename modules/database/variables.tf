@@ -30,3 +30,8 @@ variable "db_password" {
   description = "The password for the database"
 }
 
+# The table for the database
+variable "sqlcommand" {
+  description = "The password for the database"
+}
+

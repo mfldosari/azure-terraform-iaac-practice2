@@ -1,4 +1,140 @@
 ##########################
+# Network Security Group Creation
+##########################
+
+# Creates a network security group for sub 1 with an SSH rule allowing inbound traffic on port 22
+resource "azurerm_network_security_group" "nsg1" {
+  name                = var.nsg_name_sub1
+  location            = var.location
+  resource_group_name = var.rg_name
+}
+
+resource "azurerm_network_security_rule" "allow_ssh" {
+  name                        = "Allow-SSH"
+  priority                    = 1000
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "22"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  description                 = "Allow SSH traffic on port 22"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg1.name
+}
+
+resource "azurerm_network_security_rule" "allow_streamlit" {
+  name                        = "Allow-streamlit"
+  priority                    = 900
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "8501"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  description                 = "Allow Streamlit traffic on port 8501"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg1.name
+}
+
+resource "azurerm_network_security_rule" "allow_fastapi" {
+  name                        = "Allow-fastapi"
+  priority                    = 800
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "5000"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  description                 = "Allow FastAPI traffic on port 5000"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg1.name
+}
+
+resource "azurerm_network_security_rule" "allow_chroma" {
+  name                        = "Allow-chroma"
+  priority                    = 700
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "8000"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  description                 = "Allow ChromaDB traffic on port 8000"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg1.name
+}
+
+
+# Creates a network security group for sub 2 with an SSH rule allowing inbound traffic on port 22
+resource "azurerm_network_security_group" "nsg2" {
+  name                = var.nsg_name_sub2
+  location            = var.location
+  resource_group_name = var.rg_name
+
+}
+resource "azurerm_network_security_rule" "Allow_SSH" {
+  name                        = "Allow-SSH"
+  priority                    = 1000
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "22"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg2.name
+}
+resource "azurerm_network_security_rule" "allow_http" {
+  name                        = "Allow-HTTP"
+  priority                    = 120
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg2.name
+}
+
+resource "azurerm_network_security_rule" "allow_https" {
+  name                        = "Allow-HTTPS"
+  priority                    = 110
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg2.name
+}
+
+resource "azurerm_network_security_rule" "allow_appgw_infra" {
+  name                        = "Allow-AppGW-Infrastructure"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_ranges     = ["65200-65535"]
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = var.rg_name
+  network_security_group_name = azurerm_network_security_group.nsg2.name
+  description                 = "Required for App Gateway v2 infrastructure"
+}
+
+
+##########################
 # Virtual Network Creation
 ##########################
 
@@ -30,90 +166,14 @@ resource "azurerm_subnet" "sub2" {
   address_prefixes     = var.subnet2_prefixe
 }
 
-##########################
-# Network Security Group Creation
-##########################
-
-# Creates a network security group for sub 1 with an SSH rule allowing inbound traffic on port 22
-resource "azurerm_network_security_group" "nsg1" {
-  name                = var.nsg_name_sub1
-  location            = var.location
-  resource_group_name = var.rg_name
-
-  # Security rule to allow SSH on port 22
-  security_rule {
-    name                       = "Allow-SSH"
-    priority                   = 1000
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "22"
-    source_address_prefix     = "*"
-    destination_address_prefix = "*"
-    description               = "Allow SSH traffic on port 22"
-  }
-   # Security rule to allow SSH on port 22
-  security_rule {
-    name                       = "Allow-streamlit"
-    priority                   = 900
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "8501"
-    source_address_prefix     = "*"
-    destination_address_prefix = "*"
-    description               = "Allow SSH traffic on port 22"
-  }
-
-   # Security rule to allow SSH on port 22
-  security_rule {
-    name                       = "Allow-fastapi"
-    priority                   = 800
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "5000"
-    source_address_prefix     = "*"
-    destination_address_prefix = "*"
-    description               = ""
-  }
-   # Security rule to allow SSH on port 22
-  security_rule {
-    name                       = "Allow-chroma"
-    priority                   = 700
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "8000"
-    source_address_prefix     = "*"
-    destination_address_prefix = "*"
-    description               = ""
-  }
+resource "azurerm_subnet_network_security_group_association" "sub1link" {
+  subnet_id                 = azurerm_subnet.sub1.id
+  network_security_group_id = azurerm_network_security_group.nsg1.id
 }
 
-# Creates a network security group for sub 2 with an SSH rule allowing inbound traffic on port 22
-resource "azurerm_network_security_group" "nsg2" {
-  name                = var.nsg_name_sub2
-  location            = var.location
-  resource_group_name = var.rg_name
-
-  # Security rule to allow SSH on port 22
-  security_rule {
-    name                       = "Allow-SSH"
-    priority                   = 1000
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                  = "Tcp"
-    source_port_range         = "*"
-    destination_port_range    = "22"
-    source_address_prefix     = "*"
-    destination_address_prefix = "*"
-    description               = "Allow SSH traffic on port 22"
-  }
+resource "azurerm_subnet_network_security_group_association" "sub2link" {
+  subnet_id                 = azurerm_subnet.sub2.id
+  network_security_group_id = azurerm_network_security_group.nsg2.id
 }
 
 ##########################
@@ -122,7 +182,7 @@ resource "azurerm_network_security_group" "nsg2" {
 
 # Creates a static public IP address for use with a network interface
 resource "azurerm_public_ip" "chroma_vm" {
-  name                = "chroma-ip"
+  name                = "tr-chroma-ip"
   resource_group_name = var.rg_name
   location            = var.location
   allocation_method   = "Static"
@@ -130,7 +190,7 @@ resource "azurerm_public_ip" "chroma_vm" {
 
 # Creates a static public IP address for use with a network interface
 resource "azurerm_public_ip" "streamlit_uvicorn_vm" {
-  name                = "streamlit-ip"
+  name                = "tr-streamlit-ip"
   resource_group_name = var.rg_name
   location            = var.location
   allocation_method   = "Static"
@@ -184,7 +244,7 @@ resource "azurerm_application_gateway" "appgw" {
   }
 
   frontend_ip_configuration {
-    name                 = "appgw-frontend-ip"
+    name                 = "tr-appgw-frontend-ip"
     public_ip_address_id = azurerm_public_ip.streamlit_uvicorn_vm.id
   }
 
@@ -194,7 +254,7 @@ resource "azurerm_application_gateway" "appgw" {
   }
 
   backend_address_pool {
-    name = "vmss-backend-pool"
+    name = "tr-vmss-backend-pool"
     # no addresses - backend is linked by VMSS backend pool ID
   }
 
@@ -208,7 +268,7 @@ resource "azurerm_application_gateway" "appgw" {
 
   http_listener {
     name                           = "listener"
-    frontend_ip_configuration_name = "appgw-frontend-ip"
+    frontend_ip_configuration_name = "tr-appgw-frontend-ip"
     frontend_port_name             = "http"
     protocol                       = "Http"
   }
@@ -217,7 +277,7 @@ resource "azurerm_application_gateway" "appgw" {
     name                       = "rule1"
     rule_type                  = "Basic"
     http_listener_name         = "listener"
-    backend_address_pool_name  = "vmss-backend-pool"
+    backend_address_pool_name  = "tr-vmss-backend-pool"
     backend_http_settings_name = "http-settings"
     priority                   = 100  
 

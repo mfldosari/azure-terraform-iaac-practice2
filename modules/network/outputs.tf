@@ -32,9 +32,10 @@ output "subnetid1" {
 }
 
 output "appgw_backend_pool_id" {
-  value = lookup(
-    { for pool in azurerm_application_gateway.appgw.backend_address_pool : pool.name => pool.id },
-    "vmss-backend-pool",
-    null
-  )
+  value = azurerm_application_gateway.appgw.backend_address_pool 
+}
+
+output "chroma_vm_private_ip" {
+  description = "The private IP address of the Chroma VM"
+  value       = azurerm_network_interface.nic1-chroma.ip_configuration[0].private_ip_address
 }

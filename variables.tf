@@ -29,7 +29,6 @@ variable "admin_username" {
   description = "The admin username for the virtual machine"
 }
 
-
 ##########################
 # Virtual Network Configuration
 ##########################
@@ -117,6 +116,10 @@ variable "storage_account_name" {
   type        = string
 }
 
+variable "storage_container_name" {
+  description = "The name of the storage account"
+  type        = string
+}
 
 ##########################
 # Database Configuration
@@ -137,6 +140,10 @@ variable "db_password" {
   description = "The password for the database"
 }
 
+# The table for the database
+variable "sqlcommand" {
+  description = "The password for the database"
+}
 
 ##########################
 # Azure Key Vault
@@ -154,6 +161,46 @@ variable "my_object_id" {
   type        = string
 }
 
+variable "PROJ_DB_NAME" {
+  type        = string
+  description = "The database name to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_DB_USER" {
+  type        = string
+  description = "The database username to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_DB_PASSWORD" {
+  type        = string
+  description = "The database password to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_DB_PORT" {
+  type        = string
+  description = "The database port to store in Key Vault"
+  sensitive   = true
+  default = "5432"
+}
+
+variable "PROJ_OPENAI_API_KEY" {
+  type        = string
+  description = "The OpenAI API key to store in Key Vault"
+  sensitive   = true
+}
+
+
+variable "PROJ_CHROMADB_PORT" {
+  type        = string
+  description = "The ChromaDB port to store in Key Vault"
+  default = "8000"
+  sensitive   = true
+}
+
+
 
 ##########################
 # Virtual Machine Scale Set
@@ -165,17 +212,27 @@ variable "vmss_name" {
   type        = string
 }
 
-# Name of the custom image to use
-variable "image_name" {
-  description = "The name of the custom image"
+
+variable "streamlit_custom_name" {
+  description = "image name"
   type        = string
 }
 
-# Resource group containing the custom image
-variable "image_rg_name" {
-  description = "The resource group of the custom image"
+variable "streamlit_custom_rg_name" {
+  description = "image resource group  name"
   type        = string
 }
+
+variable "chroma_custom_name" {
+  description = "image name"
+  type        = string
+}
+
+variable "chroma_custom_rg_name" {
+  description = "image resource group  name"
+  type        = string
+}
+
 
 # Path to the public SSH key
 variable "pathToSSHKey" {

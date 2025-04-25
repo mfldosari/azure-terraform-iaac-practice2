@@ -37,3 +37,64 @@ variable "vmss_principal_id" {
   type        = string
   description = "The principal ID of the VMSS managed identity"
 }
+
+variable "PROJ_DB_NAME" {
+  type        = string
+  description = "The database name to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_DB_USER" {
+  type        = string
+  description = "The database username to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_DB_PASSWORD" {
+  type        = string
+  description = "The database password to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_DB_HOST" {
+  type        = string
+  description = "The database host to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_DB_PORT" {
+  type        = string
+  description = "The database port to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_OPENAI_API_KEY" {
+  type        = string
+  description = "The OpenAI API key to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_AZURE_STORAGE_SAS_URL" {
+  type        = string
+  description = "The Azure Storage SAS URL to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_AZURE_STORAGE_CONTAINER" {
+  type        = string
+  description = "The Azure Storage Container to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_CHROMADB_HOST" {
+  type        = string
+  description = "The ChromaDB host to store in Key Vault"
+  sensitive   = true
+}
+
+variable "PROJ_CHROMADB_PORT" {
+  type        = string
+  description = "The ChromaDB port to store in Key Vault"
+  default = "8000"
+  sensitive   = true
+}

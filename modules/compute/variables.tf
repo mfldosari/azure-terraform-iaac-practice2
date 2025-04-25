@@ -50,17 +50,32 @@ variable "vmss_name" {
 }
 
 
-variable "image_name" {
+variable "streamlit_custom_name" {
   description = "image name"
   type        = string
 }
 
-variable "image_rg_name" {
+variable "streamlit_custom_rg_name" {
+  description = "image resource group  name"
+  type        = string
+}
+
+variable "chroma_custom_name" {
+  description = "image name"
+  type        = string
+}
+
+variable "chroma_custom_rg_name" {
   description = "image resource group  name"
   type        = string
 }
 
 variable "pathToSSHKey" {
   description = "SSH key path"
+  type        = string
+}
+
+variable "keyvaultname" {
+  description = "Key Vault name"
   type        = string
 }

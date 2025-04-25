@@ -3,7 +3,7 @@
 ##########################
 
 resource "azurerm_postgresql_flexible_server" "this" {
-  name                   = "chatbot-database-sda-weclouddata2"  
+  name                   = "chatbot-database-sda-weclouddata5"  
   resource_group_name    = var.rg_name                        
   location               = var.db_location                        
   version                = "16"                               
@@ -16,7 +16,7 @@ resource "azurerm_postgresql_flexible_server" "this" {
   zone = "1"  
 }
 
-##########################
+/* ##########################
 # PostgreSQL Database
 ##########################
 
@@ -26,11 +26,11 @@ resource "azurerm_postgresql_flexible_server_database" "this" {
   collation = "en_US.utf8"                      
   charset   = "UTF8"                            
   
-  # Prevent accidental destruction of the database to ensure data safety
+/*   # Prevent accidental destruction of the database to ensure data safety
   lifecycle {
     prevent_destroy = true  
-  }
-}
+  } */
+ 
 
 ##########################
 # PostgreSQL Firewall Rule
@@ -42,3 +42,21 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_all" {
   start_ip_address   = "0.0.0.0"
   end_ip_address     = "255.255.255.255"
 }
+
+##########################
+# PostgreSQL Table creation
+##########################
+/* resource "null_resource" "postgresql_setup" {
+  triggers = {
+    postgres_server_name = azurerm_postgresql_flexible_server.this.name
+  }
+  provisioner "local-exec" {
+  command = <<EOT
+    export PGPASSWORD=${var.db_password}
+    psql -h ${azurerm_postgresql_flexible_server.this.fqdn} -U postgres -d postgres -c
+    ${var.sqlcommand}
+  EOT
+   
+}
+
+} */
