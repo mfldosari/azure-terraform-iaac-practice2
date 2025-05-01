@@ -1,7 +1,7 @@
 ##########################
 # Linux Virtual Machine (VM) Resource
 ##########################
-data "azurerm_image" "streamlit_custom" {
+/* data "azurerm_image" "streamlit_custom" {
 name                = var.streamlit_custom_name
 resource_group_name = var.streamlit_custom_rg_name 
 }
@@ -9,7 +9,7 @@ resource_group_name = var.streamlit_custom_rg_name
 data "azurerm_image" "chroma_custom" {
 name                = var.chroma_custom_name
 resource_group_name = var.chroma_custom_rg_name 
-}
+} */
 
 
 # Define an Azure Linux Virtual Machine with the provided configuration
@@ -19,7 +19,6 @@ resource "azurerm_linux_virtual_machine" "chroma_vm" {
   location            = var.location
   size                = var.vm_size
   admin_username      = var.admin_username
-  source_image_id = data.azurerm_image.chroma_custom.id
   network_interface_ids = [
     var.nic_name1_chroma_id,
   ]
@@ -35,10 +34,22 @@ resource "azurerm_linux_virtual_machine" "chroma_vm" {
     caching              = "ReadWrite" 
     storage_account_type = "Standard_LRS"  
   }
+  # Source image configuration (Ubuntu 22.04 LTS)
+  source_image_reference {
+    publisher = "Canonical"  
+    offer     = "0001-com-ubuntu-server-jammy" 
+    sku       = "22_04-lts" 
+    version   = "latest"  
+  }
+   identity {
+    type = "SystemAssigned"
+  }
+  custom_data = filebase64("${path.module}/vm.yaml")
 }
 
 
 resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
+  depends_on = [ azurerm_linux_virtual_machine.chroma_vm ]
   name                       = var.vmss_name
   resource_group_name        = var.rg_name
   location                   = var.location
@@ -46,7 +57,6 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
   instances                  = 2
   admin_username             = "azureuser"
   computer_name_prefix       = "chatbotvm"
-  source_image_id            = data.azurerm_image.streamlit_custom.id
   disable_password_authentication = true
 
   admin_ssh_key {
@@ -73,8 +83,16 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
   identity {
     type = "SystemAssigned"
   }
+  # Source image configuration (Ubuntu 22.04 LTS)
+  source_image_reference {
+    publisher = "Canonical"  
+    offer     = "0001-com-ubuntu-server-jammy" 
+    sku       = "22_04-lts" 
+    version   = "latest"  
+  }
 
   upgrade_mode = "Automatic"
+  custom_data = filebase64("${path.module}/vmss.yaml")
 }
 
 
@@ -144,4 +162,5 @@ resource "azurerm_monitor_autoscale_setting" "this" {
     scale_mode      = "Enabled"
     look_ahead_time = "PT5M"
   }
+  
 }

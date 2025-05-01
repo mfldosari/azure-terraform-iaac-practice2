@@ -46,17 +46,24 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_all" {
 ##########################
 # PostgreSQL Table creation
 ##########################
-/* resource "null_resource" "postgresql_setup" {
+resource "null_resource" "postgresql_setup" {
   triggers = {
     postgres_server_name = azurerm_postgresql_flexible_server.this.name
   }
   provisioner "local-exec" {
-  command = <<EOT
-    export PGPASSWORD=${var.db_password}
-    psql -h ${azurerm_postgresql_flexible_server.this.fqdn} -U postgres -d postgres -c
-    ${var.sqlcommand}
-  EOT
-   
-}
+    command = <<EOT
+      PGPASSWORD='${var.db_password}' psql -h ${azurerm_postgresql_flexible_server.this.fqdn} -U postgres -d postgres -c "
+      CREATE TABLE IF NOT EXISTS advanced_chats (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        file_path TEXT NOT NULL,
+        last_update TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        pdf_path TEXT,
+        pdf_name TEXT,
+        pdf_uuid TEXT
+      );
+      "
+    EOT
+  }
 
-} */
+}

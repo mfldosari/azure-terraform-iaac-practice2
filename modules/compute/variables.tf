@@ -34,6 +34,7 @@ variable "nic_name1_chroma_id" {
 }
 
 
+
 variable "subnet1_id" {
   description = "Subnet ID where VMSS NICs will be attached"
   type        = string
@@ -49,7 +50,7 @@ variable "vmss_name" {
   type        = string
 }
 
-
+/* 
 variable "streamlit_custom_name" {
   description = "image name"
   type        = string
@@ -68,7 +69,7 @@ variable "chroma_custom_name" {
 variable "chroma_custom_rg_name" {
   description = "image resource group  name"
   type        = string
-}
+} */
 
 variable "pathToSSHKey" {
   description = "SSH key path"

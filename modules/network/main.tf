@@ -216,6 +216,7 @@ resource "azurerm_network_interface" "nic1-chroma" {
 }
 
 
+
 ##########################
 # Network Interface Security Group Association and Application Gateway
 ##########################
@@ -225,6 +226,7 @@ resource "azurerm_network_interface_security_group_association" "linktoChromavm"
   network_interface_id      = azurerm_network_interface.nic1-chroma.id
   network_security_group_id = azurerm_network_security_group.nsg1.id
 }
+
 
 
 
@@ -283,3 +285,4 @@ resource "azurerm_application_gateway" "appgw" {
 
   }
 }
+ 

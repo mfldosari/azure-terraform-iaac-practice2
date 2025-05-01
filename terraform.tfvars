@@ -2,104 +2,94 @@
 # General Configuration
 ##########################
 
-rg_name  = "" # Name of the resource group
-location = "" # Azure region (e.g., East US, Canada Central)
+rg_name    = "" # Resource group name
+location   = "" # Azure region (e.g., East US)
 
 
 ##########################
 # Virtual Network & Subnets
 ##########################
 
-vnet_name    = "" # Name of the virtual network
-subnet1_name = "" # Name of subnet 1 (used for VMs)
-subnet2_name = "" # Name of subnet 2 (used for App Gateway)
-
-address_space   = [] # CIDR block for the virtual network
-subnet1_prefixe = [] # CIDR block for subnet 1
-subnet2_prefixe = [] # CIDR block for subnet 2
+vnet_name       = "" # Virtual network name
+subnet1_name    = "" # Subnet 1 (e.g., for VMs)
+subnet2_name    = "" # Subnet 2 (e.g., for App Gateway)
+address_space   = [] # VNet address space (e.g., ["10.0.0.0/16"])
+subnet1_prefixe = [] # Subnet 1 CIDR (e.g., ["10.0.0.0/24"])
+subnet2_prefixe = [] # Subnet 2 CIDR (e.g., ["10.0.1.0/24"])
 
 
 ##########################
 # Network Security Groups & NICs
 ##########################
 
-nsg_name_sub1 = "" # NSG for subnet 1 (VMs)
-nsg_name_sub2 = "" # NSG for subnet 2 (App Gateway)
-
-nic_name1_chroma_vm = "" # Network Interface for Chroma VM
+nsg_name_sub1       = "" # NSG for subnet 1
+nsg_name_sub2       = "" # NSG for subnet 2
+nic_name1_chroma_vm = "" # NIC for Chroma VM
 
 
 ##########################
 # Virtual Machines
 ##########################
 
-chroma_vm_name            = "" # Name of the Chroma VM
-
-
-vm_size        = "" # VM size
-admin_username = "" # Admin username for VMs
+chroma_vm_name = "" # Chroma VM name
+vm_size        = "" # VM size (e.g., Standard_B1s)
+admin_username = "" # VM admin username
 
 
 ##########################
 # Azure Identity
 ##########################
 
-subscription_id = "" # Azure Subscription ID
-tenant_id       = "" # Azure Tenant ID
+subscription_id = "" # Azure subscription ID
+tenant_id       = "" # Azure tenant ID
 
 
 ##########################
 # Storage
 ##########################
 
-storage_account_name = "" # Azure Storage Account name
-storage_container_name = "" # Storage container name
+storage_account_name   = "" # Storage account name
+storage_container_name = "" # Blob container name
 
 
 ##########################
 # Database Configuration
 ##########################
 
-db_location = "" # Location for DB resources
-db_username = "" # Database username
-db_password = "" # Database password (sensitive)
-sqlcommand = ""
+db_location = "" # Region for DB
+db_username = "" # DB username
+db_password = "" # DB password (use sensitive var)
+sqlcommand  = "" # SQL to initialize DB
 
 
 ##########################
 # Key Vault
 ##########################
 
-keyvault_name = "" # Name of the Azure Key Vault
-my_object_id  = "" # Your Azure AD object ID
+keyvault_name = "" # Key Vault name
+my_object_id  = "" # Azure AD object ID (for access policy)
 
 
-# Database Information
-PROJ_DB_NAME        = ""
-PROJ_DB_USER        = ""
-PROJ_DB_PASSWORD    = ""
+##########################
+# Project Secrets
+##########################
 
-# OpenAI API Key
-PROJ_OPENAI_API_KEY = ""
-
-
-# ChromaDB Information
-PROJ_CHROMADB_PORT = ""
+PROJ_DB_NAME         = "" # DB name
+PROJ_DB_USER         = "" # DB user
+PROJ_DB_PASSWORD     = "" # DB password
+PROJ_OPENAI_API_KEY  = "" # OpenAI API key
+PROJ_CHROMADB_PORT   = "" # ChromaDB port
 
 
 ##########################
 # VM Scale Set
 ##########################
 
-vmss_name     = "" # Name of the VM Scale Set
-streamlit_custom_name    = "" # Name of the custom image
-streamlit_custom_rg_name = "" # Resource group containing the custom image
-chroma_custom_name = "" # Name of the custom image
-chroma_custom_rg_name = "" # Resource group containing the custom image
+vmss_name = "" # VM Scale Set name
 
 
 ##########################
 # SSH Key
 ##########################
 
-pathToSSHKey = "" # Path to public SSH key
+pathToSSHKey = "" # Path to SSH public key (e.g., ~/.ssh/id_rsa.pub)

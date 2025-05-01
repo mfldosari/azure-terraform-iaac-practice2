@@ -11,9 +11,6 @@ resource "azurerm_storage_account" "this" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags = {
-    made_by = "terraform"
-  }
 }
 
 # Storage Container Resource
@@ -30,8 +27,9 @@ data "azurerm_storage_account_blob_container_sas" "this" {
   connection_string = azurerm_storage_account.this.primary_connection_string
   container_name    = azurerm_storage_container.this.name
 
-  start  = "2024-01-01"
-  expiry = "2030-01-01"
+start  = "2025-05-01"
+expiry = "2025-05-08"
+
 
   permissions {
     read   = true
@@ -41,4 +39,5 @@ data "azurerm_storage_account_blob_container_sas" "this" {
     add    = true
     create = true
   }
+  https_only = true
 }

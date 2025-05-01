@@ -7,10 +7,7 @@ output "nic_name1_chroma_id" {
   value       = azurerm_network_interface.nic1-chroma.id
 }
 
-/* output "nic2-streamlit_uvicorn_id" {
-  description = "The ID of the network interface (Streamlit and Uvicorn NIC)"
-  value       = azurerm_network_interface.nic2-streamlit.id
-} */
+
 
 ##########################
 # Public IP Address Outputs

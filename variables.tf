@@ -183,7 +183,7 @@ variable "PROJ_DB_PORT" {
   type        = string
   description = "The database port to store in Key Vault"
   sensitive   = true
-  default = "5432"
+  default     = "5432"
 }
 
 variable "PROJ_OPENAI_API_KEY" {
@@ -196,7 +196,7 @@ variable "PROJ_OPENAI_API_KEY" {
 variable "PROJ_CHROMADB_PORT" {
   type        = string
   description = "The ChromaDB port to store in Key Vault"
-  default = "8000"
+  default     = "8000"
   sensitive   = true
 }
 
@@ -212,7 +212,7 @@ variable "vmss_name" {
   type        = string
 }
 
-
+/* 
 variable "streamlit_custom_name" {
   description = "image name"
   type        = string
@@ -232,7 +232,7 @@ variable "chroma_custom_rg_name" {
   description = "image resource group  name"
   type        = string
 }
-
+ */
 
 # Path to the public SSH key
 variable "pathToSSHKey" {
