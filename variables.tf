@@ -117,7 +117,7 @@ variable "storage_account_name" {
 }
 
 variable "storage_container_name" {
-  description = "The name of the storage account"
+  description = "The name of the storage account container "
   type        = string
 }
 
@@ -142,7 +142,7 @@ variable "db_password" {
 
 # The table for the database
 variable "sqlcommand" {
-  description = "The password for the database"
+  description = "The sql command for the database"
 }
 
 ##########################
